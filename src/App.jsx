@@ -89,7 +89,7 @@ function App() {
 
           <form
             onSubmit={handleShorten}
-            className="border-4 border-[#353C4A] p-[3px] rounded-[35px] flex gap-4 max-w-[550px] w-full"
+            className="border-4 border-[#353C4A] p-[3px] rounded-[35px] flex max-w-[550px] w-full"
           >
             <input
               type="text"
@@ -111,20 +111,20 @@ function App() {
             <p>Auto paste from Clipboard</p>
           </span>
 
-          <p>Enjoy Your Shortened Link. Don’t Forget To Bookmark Now.</p>
+          <p className='text-center'>Enjoy Your Shortened Link. Don’t Forget To Bookmark Now.</p>
         </div>
 
         <div className="space-y-2 p-4">
 
-            <div className="grid grid-cols-5 w-full max-w-[700px] font-semibold bg-[#4a515e40] backdrop-blur-[10px] rounded-t-2xl p-4">
-              <p className="text-center">ShortLink</p>
+            <div className="grid grid-cols-5 w-full gap-x-10  max-w-[700px] font-semibold bg-[#4a515e40] backdrop-blur-[10px] rounded-t-2xl p-4 max-sm:text-sm">
+              <p className="text-center ">ShortLink</p>
               <p className="text-center">Original Link</p>
               <p className="text-center">Status</p>
               <p className="text-center">Date</p>
               <p className="text-center">Delete</p>
             </div>
 
-          <div className="scroll-history overflow-y-scroll max-h-[200px] w-full max-w-[700px] bg-[#4a515e40] backdrop-blur-[10px] rounded-b-2xl p-4">
+          <div className="scroll-history overflow-y-scroll max-h-[200px] max-sm:max-h-[300px] w-full max-w-[700px] bg-[#4a515e40] backdrop-blur-[10px] rounded-b-2xl p-4">
             {/* Link Data Rows */}
             {datas.map((data) => (
               <div
