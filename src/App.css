@@ -14,97 +14,108 @@ body {
 }
 
 .cta {
-   background: linear-gradient(90deg, #1F89DB, #F42A8B);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      /* For Firefox */
-      background-clip: text;
-      color: transparent;
+  background: linear-gradient(90deg, #1F89DB, #F42A8B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* For Firefox */
+  background-clip: text;
+  color: transparent;
 }
 
 .logo {
-     background: linear-gradient(90deg, #F42A8B, #1F89DB);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      /* For Firefox */
-      background-clip: text;
-      color: transparent;
+  background: linear-gradient(90deg, #F42A8B, #1F89DB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* For Firefox */
+  background-clip: text;
+  color: transparent;
 }
 
 
-    .gradient-border {
-      padding: 5px;
-      border-radius: 30px;
-      background: linear-gradient(270deg, #ff0080, #7928ca, #2afadf);
-      background-size: 600% 600%;
-      animation: borderAnimation 3s ease infinite;
-    }
+.gradient-border {
+  padding: 5px;
+  border-radius: 30px;
+  background: linear-gradient(270deg, #ff0080, #7928ca, #2afadf);
+  background-size: 600% 600%;
+  animation: borderAnimation 3s ease infinite;
+}
 
-    @keyframes borderAnimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 
-/* From Uiverse.io by mrhyddenn */ 
+.scroll-history {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroll-history::-webkit-scrollbar {
+  display: none;
+}
+
+/* From Uiverse.io by mrhyddenn */
 /* The switch - the box around the slider */
 .switch {
- font-size: 17px;
- position: relative;
- display: inline-block;
- width: 52px;
- height: 25px;
- border: 1px solid #ccc;
- border-radius: 30px;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
- opacity: 1;
- width: 0;
- height: 0;
+  opacity: 1;
+  width: 0;
+  height: 0;
 }
 
 /* The slider */
 .slider {
- position: absolute;
- cursor: pointer;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0px;
- background: #ffffff6d;
- transition: .4s;
- border-radius: 30px;
- border: 1px solid #ccc;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  background: #ffffff6d;
+  transition: .4s;
+  border-radius: 30px;
+  border: 1px solid #ccc;
 }
 
 .slider:before {
- position: absolute;
- content: "";
- height: 1.1em;
- width: 1.1em;
- border-radius: 16px;
- left: 1.2px;
- top: 0;
- bottom: 0;
- background-color: #1F89DB;
- box-shadow: 0 5px 5px #0E131E;
- transition: .4s;
+  position: absolute;
+  content: "";
+  height: 1.1em;
+  width: 1.1em;
+  border-radius: 16px;
+  left: 1.2px;
+  top: 0;
+  bottom: 0;
+  background-color: #1F89DB;
+  box-shadow: 0 5px 5px #0E131E;
+  transition: .4s;
 }
 
-input:checked + .slider {
- background-color: #181E29;
- border: 1px solid transparent;
+input:checked+.slider {
+  background-color: #181E29;
+  border: 1px solid transparent;
 }
 
-input:checked + .slider:before {
- transform: translateX(1.5em);
+input:checked+.slider:before {
+  transform: translateX(1.5em);
 }

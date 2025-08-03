@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import './App.css'
 import Toggle from './components/DarkModeToggle/toggle';
+import copyIcon from '../src/assets/copy.svg';
 
 function App() {
   const [originalUrl, setOriginalUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [datas, setDatas] = useState([
     {
       id: 1,
@@ -61,10 +64,10 @@ function App() {
     <div className='hero'>
       <div className='flex flex-col gap-4 items-center justify-center'>
 
-        <div className='flex flex-col gap-2 items-center justify-center p-4 mt-36'>
-          <h1 className='text-5xl font-bold cta'>Shorten your Loooong Links:)</h1>
+        <div className='flex flex-col gap-2 items-center justify-center p-4 mt-20'>
+          <h1 className='text-5xl font-bold cta text-center'>Shorten your Loooong Links:)</h1>
           <p className='max-w-[500px] text-center text-sm mt-4'>
-            Suretit is an efficient and easy-to-use URL shortening service that streamlines your online experience.
+            Shortit is an efficient and easy-to-use URL shortening service that streamlines your online experience.
           </p>
 
           <form
@@ -94,9 +97,11 @@ function App() {
           <p>Enjoy Your Shortend Link. Don’t Forget To Bookmark Now.</p>
         </div>
 
+        <div className='space-y-2 p-4'>
+
         {/* Header Row */}
         {datas.length > 0 && (
-          <div className='grid grid-cols-4 w-full max-w-[700px] font-semibold'>
+          <div className='grid grid-cols-4 w-full max-w-[700px] font-semibold bg-[#4a515e40] backdrop-blur-[10px] rounded-t-2xl p-4'>
             <p className='text-center'>ShortLink</p>
             <p className='text-center'>Original Link</p>
             <p className='text-center'>Status</p>
@@ -105,26 +110,29 @@ function App() {
         )}
 
 
-        <div>
+        <div className='scroll-history overflow-y-scroll max-h-[200px] w-full max-w-[700px] bg-[#4a515e40] backdrop-blur-[10px] rounded-b-2xl p-4'>
           {/* Link Data Rows */}
           {datas.map((data) => (
-            <div key={data.id} className='grid grid-cols-4 gap-4 gap-y-6 w-full max-w-[700px] text-sm items-center'>
+            <div key={data.id} className='grid grid-cols-4 gap-4 gap-y-6 w-full max-w-[700px] text-sm items-center justify-center'>
               <div className='flex items-center justify-center gap-2'>
-                <p className='text-center text-blue-600 underline cursor-pointer flex' onClick={() => handleCopy(data.shortLink)}>
+                <p className='text-center text-blue-600 underline w-[80%] cursor-pointer flex items-center truncate' onClick={() => handleCopy(data.shortLink)}>
                   {data.shortLink}
-                                  <button
-                  onClick={() => handleCopy(data.shortLink)}
-                  className='text-xs text-gray-500 hover:text-black'
-                >
-                  📋
-                </button>
                 </p>
+
+                <button
+                  onClick={() => handleCopy(data.shortLink)}
+                  className='text-xs text-gray-500 hover:text-black cursor-pointer'
+                >
+                  <img src={copyIcon} alt="" />
+                </button>
               </div>
               <p className='max-w-[200px] break-words text-center line-clamp-2'>{data.originalLink}</p>
               <p className='text-center'>{data.status}</p>
               <p className='text-center'>{data.date}</p>
             </div>
           ))}
+        </div>
+
         </div>
 
       </div>
