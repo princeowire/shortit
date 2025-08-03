@@ -54,6 +54,13 @@ body {
   }
 }
 
+.loader {
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 9999px;
+}
+
+
 
 .scroll-history {
   -ms-overflow-style: none;

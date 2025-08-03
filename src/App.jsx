@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Toggle from './components/DarkModeToggle/toggle';
 import copyIcon from '../src/assets/copy.svg';
+import { Toaster, toast } from 'react-hot-toast'; // ✅ FIXED
 
 function App() {
   const [originalUrl, setOriginalUrl] = useState('');
@@ -10,7 +11,6 @@ function App() {
     return stored ? JSON.parse(stored) : [];
   });
 
-  // Sync localStorage whenever datas changes
   useEffect(() => {
     localStorage.setItem('shortLinks', JSON.stringify(datas));
   }, [datas]);
@@ -18,7 +18,7 @@ function App() {
   const handleShorten = async (e) => {
     e.preventDefault();
     if (!/^https?:\/\/.+/.test(originalUrl)) {
-      alert('Please enter a valid URL that starts with http or https');
+      toast.error('Please enter a valid URL that starts with http or https'); // ✅ FIXED
       return;
     }
 
@@ -29,7 +29,7 @@ function App() {
       const shortUrl = await response.text();
 
       if (shortUrl.startsWith("Error")) {
-        alert("TinyURL failed to shorten your link.");
+        toast.error("TinyURL failed to shorten your link.");
         return;
       }
 
@@ -43,8 +43,9 @@ function App() {
 
       setDatas((prev) => [newEntry, ...prev]);
       setOriginalUrl('');
+      toast.success('Link shortened successfully!'); // ✅ OPTIONAL
     } catch (error) {
-      alert('Something went wrong. Try again.');
+      toast.error('Something went wrong. Try again.');
       console.error(error);
     }
   };
@@ -53,32 +54,32 @@ function App() {
     try {
       const text = await navigator.clipboard.readText();
       if (!/^https?:\/\/.+/.test(text)) {
-        alert("Clipboard doesn't contain a valid URL.");
+        toast.error("Clipboard doesn't contain a valid URL.");
         return;
       }
       setOriginalUrl(text);
     } catch (err) {
-      alert("Failed to read clipboard: " + err.message);
+      toast.error("Failed to read clipboard: " + err.message);
     }
   };
 
   const handleCopy = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert('Short URL copied!');
+      toast.success('Short URL copied!'); // ✅ FIXED TYPO
     } catch (err) {
-      alert('Failed to copy code: ' + err.message);
+      toast.error('Failed to copy: ' + err.message);
     }
   };
 
   const handleDelete = (id) => {
     const updated = datas.filter((item) => item.id !== id);
     setDatas(updated);
-    // localStorage sync handled by useEffect
   };
 
   return (
     <div className="hero">
+      <Toaster position="top-right" /> {/* ✅ ENSURES TOAST IS VISIBLE */}
       <div className="flex flex-col gap-4 items-center justify-center">
 
         <div className="flex flex-col gap-2 items-center justify-center p-4 mt-20">
@@ -115,17 +116,15 @@ function App() {
         </div>
 
         <div className="space-y-2 p-4">
-
-            <div className="grid grid-cols-5 w-full gap-x-10  max-w-[700px] font-semibold bg-[#4a515e40] backdrop-blur-[10px] rounded-t-2xl p-4 max-sm:text-sm">
-              <p className="text-center ">ShortLink</p>
-              <p className="text-center">Original Link</p>
-              <p className="text-center">Status</p>
-              <p className="text-center">Date</p>
-              <p className="text-center">Delete</p>
-            </div>
+          <div className="grid grid-cols-5 w-full gap-x-10 max-w-[700px] font-semibold bg-[#4a515e40] backdrop-blur-[10px] rounded-t-2xl p-4 max-sm:text-sm">
+            <p className="text-center">ShortLink</p>
+            <p className="text-center">Original Link</p>
+            <p className="text-center">Status</p>
+            <p className="text-center">Date</p>
+            <p className="text-center">Delete</p>
+          </div>
 
           <div className="scroll-history overflow-y-scroll max-h-[200px] max-sm:max-h-[300px] w-full max-w-[700px] bg-[#4a515e40] backdrop-blur-[10px] rounded-b-2xl p-4">
-            {/* Link Data Rows */}
             {datas.map((data) => (
               <div
                 key={data.id}
