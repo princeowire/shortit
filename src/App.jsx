@@ -37,7 +37,7 @@ function App() {
         id: Date.now(),
         shortLink: shortUrl,
         originalLink: originalUrl,
-        date: new Date().toDateString(),
+        date: formatDateTime(new Date()),
         status: 'Active',
       };
 
@@ -76,6 +76,19 @@ function App() {
     const updated = datas.filter((item) => item.id !== id);
     setDatas(updated);
   };
+
+  const formatDateTime = (date) => {
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  const formattedHour = String(hours % 12 || 12).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const year = String(date.getFullYear()).slice(-2);
+
+  return `${formattedHour}:${minutes}${ampm}, ${day}/${month}/${year}`;
+};
+
 
   return (
     <div className="hero">
