@@ -6,7 +6,7 @@ const Nav = () => {
       <p className="logo text-2xl font-semibold">Shortit</p>
 
       <span className='rounded-[30px] gradient-border'>
-        <button className='p-2 px-6 bg-[#181E29] rounded-[30px]'>Book Mark now</button>
+        <button className='p-2 px-6 bg-[#181E29] rounded-[30px]'  onClick={() => alert('Press Ctrl+D (Windows) or Cmd+D (Mac) to bookmark this page')}>Book Mark now</button>
       </span>
     </div>
   )
