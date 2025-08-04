@@ -92,7 +92,7 @@ function App() {
 
   return (
     <div className="hero">
-      <Toaster position="top-right" /> {/* ✅ ENSURES TOAST IS VISIBLE */}
+      <Toaster position="top-right" /> {/* ✅ FIXED */}
       <div className="flex flex-col gap-4 items-center justify-center">
 
         <div className="flex flex-col gap-2 items-center justify-center p-4 mt-20">
@@ -114,7 +114,7 @@ function App() {
             />
             <button
               type="submit"
-              className="px-2 py-2 w-[30%] bg-[#144EE3] rounded-[30px] text-white cursor-pointer"
+              className="px-2 py-2 w-[30%] max-sm:text-[10px] bg-[#144EE3] rounded-[30px] text-white cursor-pointer"
             >
               Shorten Now!
             </button>
