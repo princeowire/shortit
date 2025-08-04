@@ -1,0 +1,160 @@
+Shortit - URL Shortener Documentation
+Prince OwireAugust 04, 2025
+Overview
+
+Shortit is a React-based URL shortener application that uses the TinyURL API to generate shortened links. It provides a clean interface to shorten, copy, and manage links with features like clipboard pasting, dark mode toggle, and a history of shortened URLs stored in localStorage.
+
+Features
+
+• URL Shortening – Converts long URLs into short, shareable links.
+
+• Clipboard Pasting – Auto-paste URLs from the clipboard.
+
+• Link History – Stores all shortened links in localStorage.
+
+• Copy to Clipboard – One-click copy functionality.
+
+• Delete Links – Remove unwanted links from history.
+
+• Responsive Design – Works on mobile and desktop.
+
+• Success/Failure Notifications – Uses react-hot-toast for alerts.
+
+• Popup Preview – Shows the shortened link in a popup after generation.
+
+Dependencies
+
+Package
+
+Purpose
+
+react
+
+Core React library
+
+react-hot-toast
+
+Toast notifications
+
+react-icons (if used)
+
+Icons (e.g., copy, delete)
+
+localStorage
+
+Persists link history
+
+
+
+Code Breakdown
+
+1. State Management
+
+originalUrl – Stores the input URL.
+
+loading – Toggles loading spinner during API call.
+
+showPopup – Controls popup visibility.
+
+currentShortLink – Stores the latest shortened URL.
+
+datas – Stores all shortened links (persisted in localStorage).
+
+2. Key Functions
+
+handleShorten(e)
+
+Validates the URL format (http:// or https://).
+
+Calls TinyURL API (https://tinyurl.com/api-create.php).
+
+Adds the new link to datas and shows a success toast.
+
+Displays the shortened link in a popup.
+
+handlePaste()
+
+Reads the clipboard and auto-fills the URL input.
+
+handleCopy(text)
+
+Copies the shortened URL to the clipboard.
+
+handleDelete(id)
+
+Removes a link from history.
+
+formatDateTime(date)
+
+Formats date & time (e.g., 02:30pm, 04/08/25).
+
+Components
+
+
+
+1. <Toggle />
+
+
+
+Handles dark/light mode toggle (if implemented).
+
+Also triggers handlePaste() for auto-pasting.
+
+
+
+2. <Popup />
+
+Displays the newly generated short URL.
+
+Contains a Copy button (handleCopy).
+
+
+
+3. <Toaster />
+
+Shows success/error notifications via react-hot-toast.
+
+
+
+How to Use
+
+
+
+Enter a URL in the input field (must start with http:// or https://).
+
+Click "Shorten Now!" (or press Enter).
+
+The shortened link appears in a popup – click Copy to save it.
+
+View history below, where you can:
+
+Copy any link again.
+
+Delete unwanted links.
+
+
+
+Error Handling
+
+
+
+• Invalid URL → Shows toast: "Please enter a valid URL..."
+
+• API Failure → Shows toast: "TinyURL failed to shorten your link."
+
+• Clipboard Error → Shows toast: "Failed to read clipboard."
+
+
+
+Conclusion
+
+
+
+Shortit is a lightweight, user-friendly URL shortener built with React. It efficiently handles link shortening, copying, and management while ensuring a smooth UX with notifications and persistent storage.
+
+
+
+
+
+
+Edit
