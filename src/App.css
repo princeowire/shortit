@@ -10,7 +10,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-color: #181E29;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 }
 
 .cta {
@@ -127,8 +128,8 @@ input:checked+.slider:before {
   transform: translateX(1.5em);
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .hero {
     height: 100%;
   }
-}
+} */

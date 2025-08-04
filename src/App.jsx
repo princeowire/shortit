@@ -3,9 +3,16 @@ import './App.css';
 import Toggle from './components/DarkModeToggle/toggle';
 import copyIcon from '../src/assets/copy.svg';
 import { Toaster, toast } from 'react-hot-toast'; // ✅ FIXED
+import Popup from '../src/components/Popup/popup'; // ✅ Import Popup
+
 
 function App() {
   const [originalUrl, setOriginalUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); 
+  const [currentShortLink, setCurrentShortLink] = useState('');
+
+
   const [datas, setDatas] = useState(() => {
     const stored = localStorage.getItem('shortLinks');
     return stored ? JSON.parse(stored) : [];
@@ -17,10 +24,13 @@ function App() {
 
   const handleShorten = async (e) => {
     e.preventDefault();
+
     if (!/^https?:\/\/.+/.test(originalUrl)) {
-      toast.error('Please enter a valid URL that starts with http or https'); // ✅ FIXED
+      toast.error('Please enter a valid URL that starts with http or https');
       return;
     }
+
+    setLoading(true); // Start spinner
 
     try {
       const response = await fetch(
@@ -43,12 +53,18 @@ function App() {
 
       setDatas((prev) => [newEntry, ...prev]);
       setOriginalUrl('');
-      toast.success('Link shortened successfully!'); // ✅ OPTIONAL
+      setCurrentShortLink(shortUrl);  // Set the new link
+      setShowPopup(true);             // Show popup
+
+      toast.success('Link shortened successfully!');
     } catch (error) {
       toast.error('Something went wrong. Try again.');
       console.error(error);
+    } finally {
+      setLoading(false); // End spinner
     }
   };
+
 
   const handlePaste = async () => {
     try {
@@ -66,11 +82,13 @@ function App() {
   const handleCopy = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success('Short URL copied!'); // ✅ FIXED TYPO
+      toast.success('Short URL copied!');
+      setShowPopup(false); // Hide popup
     } catch (err) {
       toast.error('Failed to copy: ' + err.message);
     }
   };
+
 
   const handleDelete = (id) => {
     const updated = datas.filter((item) => item.id !== id);
@@ -78,16 +96,16 @@ function App() {
   };
 
   const formatDateTime = (date) => {
-  const hours = date.getHours();
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const ampm = hours >= 12 ? 'pm' : 'am';
-  const formattedHour = String(hours % 12 || 12).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const year = String(date.getFullYear()).slice(-2);
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    const formattedHour = String(hours % 12 || 12).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = String(date.getFullYear()).slice(-2);
 
-  return `${formattedHour}:${minutes}${ampm}, ${day}/${month}/${year}`;
-};
+    return `${formattedHour}:${minutes}${ampm}, ${day}/${month}/${year}`;
+  };
 
 
   return (
@@ -114,10 +132,16 @@ function App() {
             />
             <button
               type="submit"
-              className="px-2 py-2 w-[30%] max-sm:text-[10px] bg-[#144EE3] rounded-[30px] text-white cursor-pointer"
+              className="px-2 py-2 w-[30%] max-sm:text-[10px] bg-[#144EE3] rounded-[30px] text-white cursor-pointer flex items-center justify-center"
+              disabled={loading}
             >
-              Shorten Now!
+              {loading ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                'Shorten Now!'
+              )}
             </button>
+
           </form>
 
           <span className="flex items-center justify-center gap-2 mt-4">
@@ -150,6 +174,7 @@ function App() {
                   >
                     {data.shortLink}
                   </p>
+
                   <button
                     onClick={() => handleCopy(data.shortLink)}
                     className="text-xs text-gray-500 hover:text-black cursor-pointer"
@@ -171,6 +196,10 @@ function App() {
           </div>
         </div>
       </div>
+        {showPopup && (
+    <Popup shortLink={currentShortLink} onCopy={handleCopy} />
+  )}
+
     </div>
   );
 }
